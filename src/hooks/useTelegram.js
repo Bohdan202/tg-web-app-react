@@ -1,4 +1,4 @@
-const tg = window.Telegram.WebApp;
+const tg = Telegram.WebApp;
 
 export function useTelegram() {
 
@@ -19,5 +19,6 @@ export function useTelegram() {
         onToggleButton,
         tg,
         user: tg.initDataUnsafe?.user,
+        queryId: tg.initDataUnsafe?.query_id,
     }
 }

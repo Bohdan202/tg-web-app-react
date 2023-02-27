@@ -5,17 +5,18 @@ import {useTelegram} from "../../hooks/useTelegram";
 const Form = () => {
     const [street, setStreet] = useState('');
     const [houseNumber, setHouseNumber] = useState('');
-    const [subject, setSubject] = useState('Забрати в магазині');
+    const [delivery, setDelivery] = useState('Забрати в магазині');
     const {tg} = useTelegram();
 
     const onSendData = useCallback(() => {
         const data = {
             street,
             houseNumber,
-            subject
+            delivery
         }
         tg.sendData(JSON.stringify(data));
-    }, [street, houseNumber, subject]);
+        console.log(data);
+    }, [street, houseNumber, delivery]);
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendData);
@@ -48,8 +49,8 @@ const Form = () => {
         setHouseNumber(e.target.value)
     }
 
-    const onChangeSubject = (e) => {
-        setSubject(e.target.value)
+    const onChangeDelivery = (e) => {
+        setDelivery(e.target.value)
     }
 
     return (
@@ -69,9 +70,9 @@ const Form = () => {
                 value={houseNumber}
                 onChange={onChangeHouseNumber}
             />
-            <select value={subject} onChange={onChangeSubject} className={'select'}>
+            <select value={delivery} onChange={onChangeDelivery} className={'select'}>
                 <option value={'getAtStore'}>Забрати в магазині</option>
-                <option value={'delivery'}>Доставка додому</option>
+                <option value={'deliveryToHome'}>Доставка додому</option>
             </select>
         </div>
     );
